@@ -12,7 +12,7 @@ def index(request):
     num_books=Book.objects.all().count()
     # Available books (status = 'a')
     num_authors=Author.objects.count()  # The 'all()' is implied by default.
-    
+
     # Render the HTML template index.html with the data in the context variable
     return render(
         request,
@@ -23,7 +23,7 @@ def index(request):
 class BookListView(generic.ListView):
     model = Book
     context_object_name = 'book_list'   # your own name for the list as a template variable
-    queryset = Book.objects.filter(title__icontains=' ')[:5] # Get 5 books containing the title war
+    queryset = Book.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
     template_name = 'catalog/book_list.html'  # Specify your own template name/location
 
     def get_queryset(self):
