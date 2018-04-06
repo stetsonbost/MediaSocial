@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 from django.views import generic
 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 from .models import Book, Author, Comment, Genre
 
 def index(request):
@@ -29,7 +32,7 @@ class BookListView(generic.ListView):
     model = Book
     context_object_name = 'book_list'   # your own name for the list as a template variable
     template_name = 'catalog/book_list.html'  # Specify your own template name/location
-    paginate_by = 2
+    paginate_by = 20
     def get_queryset(self):
         return Book.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
 
@@ -38,9 +41,31 @@ class BookDetailView(generic.DetailView):
 
 class AuthorListView(generic.ListView):
     model = Author
-    paginate_by = 2
+    paginate_by = 20
     def get_queryset(self):
         return Author.objects.filter(first_name__icontains='')[:5]
 
 class AuthorDetailView(generic.DetailView):
     model = Author
+
+
+class AuthorCreate(CreateView):
+    model = Author
+    fields = '__all__'
+    initial={'date_of_birth':'05/01/2018',}
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = ['first_name','last_name','date_of_birth','date_of_death']
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
+
+class BookCreate(CreateView):
+    model = Book
+    fields = '__all__'
+
+class BookUpdate(UpdateView):
+    model = Book
+    fields = ['title','author','isbn','genre', 'summary']
