@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
@@ -68,6 +69,32 @@ class Book(models.Model):
         """
         return reverse('book-detail', args=[str(self.id)])
 
+
+class Television(models.Model):
+    title = models.CharField(max_length=200)
+    creator = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    seasons = models.IntegerField(default = 1)
+    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
+    genre = models.ManyToManyField(Genre)
+    first_air_date = models.DateField(default=date.today())
+
+class Movies(models.Model):
+    title = models.CharField(max_length=200)
+    director = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    writer = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
+    genre = models.ManyToManyField(Genre)
+    duration = models.IntegerField(default=30)
+    release_date = models.DateField(default=date.today())
+
+class Music (models.Model):
+    song_title = models.CharField(max_length=200)
+    artist = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    length = models.FloatField(default=2.0)
+
+
+class Visual (models.Model):
+    creator = models.ForeignKey('Author', on_delete=models.SET_NULL)
 
 class Author(models.Model):
     """
