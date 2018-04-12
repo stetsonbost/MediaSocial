@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
+  <h1> {{ book.title }}</h1>
   <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book.summary }}</p>
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
@@ -9,14 +9,20 @@
   <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 
   <div style="margin-left:20px;margin-top:20px">
-    <h4>Copies</h4>
+    <h4>Reviews</h4>
 
-    {% for copy in book.bookinstance_set.all %}
-    <hr>
-    <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
-    {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
-    <p><strong>Imprint:</strong> {{copy.imprint}}</p>
-    <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+
+    {% for review in book.review_set.all %}
+
+        <hr>
+        <div><a href="{% url 'book-detail' book.pk %}">
+          <p><strong>First_Name Last_Name:</strong> {{review.description}}</a></p>
+            {% for reply in review.reply_set.all %}
+              <p style="margin-left: 40px"><strong>First_Name Last_Name:</strong> {{reply.description}}</a></p>
+            {% endfor %}
+        <div>
+
+
     {% endfor %}
   </div>
 {% endblock %}

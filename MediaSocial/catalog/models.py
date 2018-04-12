@@ -2,28 +2,38 @@ from django.db import models
 
 # Create your models here.
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
+from datetime import date
 
 
 
-
-class Comment(models.Model):
+class Review(models.Model):
     """ Model representing a comment"""
-
-    cID = models.CharField(max_length=200)
-
-    time = models.CharField(max_length=20)
 
     description = models.CharField(max_length=500, help_text="Enter a comment...")
 
+    mediaItem = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
+
+
     def __str__(self):
-        return self.cID
+        return self.description
+
+class Reply(models.Model):
+    """ Model representing a comment"""
+
+    description = models.CharField(max_length=500, help_text="Enter a comment...")
+
+    mediaItem = models.ForeignKey('Review', on_delete=models.SET_NULL, null=True)
+
+
+    def __str__(self):
+        return self.description
 
 class Genre(models.Model):
     """
     Model representing a book genre (e.g. Science Fiction, Non Fiction).
     """
     name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
-    
+
     def __str__(self):
         """
         String for representing the Model object (in Admin site etc.)
@@ -44,14 +54,14 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
-    
+
     def __str__(self):
         """
         String for representing the Model object.
         """
         return self.title
-    
-    
+
+
     def get_absolute_url(self):
         """
         Returns the url to access a detail record for this book.
@@ -70,13 +80,13 @@ class Author(models.Model):
 
     class Meta:
         ordering = ["last_name","first_name"]
-    
+
     def get_absolute_url(self):
         """
         Returns the url to access a particular author instance.
         """
         return reverse('author-detail', args=[str(self.id)])
-    
+
 
     def __str__(self):
         """
@@ -84,3 +94,28 @@ class Author(models.Model):
         """
         return '{0}, {1}'.format(self.last_name,self.first_name)
 
+
+class Television(models.Model):
+    title = models.CharField(max_length=200)
+    creator = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    seasons = models.IntegerField(default = 1)
+    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
+    genre = models.ManyToManyField(Genre)
+    first_air_date = models.DateField(default=date.today())
+
+class Movies(models.Model):
+    title = models.CharField(max_length=200)
+    director = models.ForeignKey('Author', on_delete = models.CASCADE, related_name="director")
+    writer = models.ForeignKey('Author', on_delete = models.CASCADE, related_name="writer")
+    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
+    genre = models.ManyToManyField(Genre)
+    duration = models.IntegerField(default=30)
+    release_date = models.DateField(default=date.today())
+
+class Music (models.Model):
+    song_title = models.CharField(max_length=200)
+    artist = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
+    length = models.FloatField(default=2.0)
+
+class Visual (models.Model):
+    creator = models.ForeignKey('Author', on_delete=models.CASCADE, related_name='creator')

@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Book, Author, Comment, Genre
+from .models import Book, Author, Review, Genre
 
 def index(request):
     """
