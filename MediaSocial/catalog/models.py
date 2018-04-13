@@ -52,7 +52,7 @@ class Book(models.Model):
     # Author as a string rather than object because it hasn't been declared yet in the file.
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
     isbn = models.CharField('ISBN',max_length=13, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
-    genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+    genre = models.ManyToManyField('Genre', help_text='Select a genre for this book')
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
 
@@ -70,31 +70,14 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
 
-class Television(models.Model):
-    title = models.CharField(max_length=200)
-    creator = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    seasons = models.IntegerField(default = 1)
-    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
-    genre = models.ManyToManyField(Genre)
-    first_air_date = models.DateField(default=date.today())
-
-class Movies(models.Model):
-    title = models.CharField(max_length=200)
-    director = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    writer = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
-    genre = models.ManyToManyField(Genre)
-    duration = models.IntegerField(default=30)
-    release_date = models.DateField(default=date.today())
-
 class Music (models.Model):
     song_title = models.CharField(max_length=200)
-    artist = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    artist = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
     length = models.FloatField(default=2.0)
 
 
 class Visual (models.Model):
-    creator = models.ForeignKey('Author', on_delete=models.SET_NULL)
+    creator = models.ForeignKey('Author', on_delete=models.CASCADE)
 
 class Author(models.Model):
     """
@@ -127,7 +110,7 @@ class Television(models.Model):
     creator = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     seasons = models.IntegerField(default = 1)
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
-    genre = models.ManyToManyField(Genre)
+    genre = models.ManyToManyField('Genre')
     first_air_date = models.DateField(default=date.today())
 
 class Movies(models.Model):
@@ -135,14 +118,6 @@ class Movies(models.Model):
     director = models.ForeignKey('Author', on_delete = models.CASCADE, related_name="director")
     writer = models.ForeignKey('Author', on_delete = models.CASCADE, related_name="writer")
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
-    genre = models.ManyToManyField(Genre)
+    genre = models.ManyToManyField('Genre')
     duration = models.IntegerField(default=30)
     release_date = models.DateField(default=date.today())
-
-class Music (models.Model):
-    song_title = models.CharField(max_length=200)
-    artist = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
-    length = models.FloatField(default=2.0)
-
-class Visual (models.Model):
-    creator = models.ForeignKey('Author', on_delete=models.CASCADE, related_name='creator')
