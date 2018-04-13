@@ -15,10 +15,10 @@
     {% for review in book.review_set.all %}
 
         <hr>
-        <div><a href="{% url 'book-detail' book.pk %}">
-          <p><strong>First_Name Last_Name:</strong> {{review.description}}</a></p>
+        <div>
+          <p><strong>{{review.user.username}}:</strong> {{review.description}}</a></p>
             {% for reply in review.reply_set.all %}
-              <p style="margin-left: 40px"><strong>First_Name Last_Name:</strong> {{reply.description}}</a></p>
+              <p style="margin-left: 40px"><strong>{{reply.user.username}}:</strong> {{reply.description}}</a></p>
             {% endfor %}
         <div>
 

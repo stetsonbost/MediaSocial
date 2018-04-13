@@ -4,6 +4,7 @@ from datetime import date
 # Create your models here.
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 from datetime import date
+from django.contrib.auth.models import User
 
 
 
@@ -14,6 +15,7 @@ class Review(models.Model):
 
     mediaItem = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
 
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.description
@@ -23,8 +25,9 @@ class Reply(models.Model):
 
     description = models.CharField(max_length=500, help_text="Enter a comment...")
 
-    mediaItem = models.ForeignKey('Review', on_delete=models.SET_NULL, null=True)
+    reply_to = models.ForeignKey('Review', on_delete=models.SET_NULL, null=True)
 
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.description

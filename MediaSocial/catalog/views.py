@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Book, Author, Review, Genre
+from .models import Book, Author, Review, Genre, Music
 
 def index(request):
     """
@@ -32,9 +32,17 @@ class BookListView(generic.ListView):
     model = Book
     context_object_name = 'book_list'   # your own name for the list as a template variable
     template_name = 'catalog/book_list.html'  # Specify your own template name/location
-    paginate_by = 20
+    paginate_by = 3
     def get_queryset(self):
         return Book.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
+
+class MusicListView(generic.ListView):
+    model = Music
+    context_object_name = 'music_list'   # your own name for the list as a template variable
+    template_name = 'catalog/book_list.html'  # Specify your own template name/location
+    paginate_by = 3
+    def get_queryset(self):
+        return Music.objects.filter(title__icontains='')[:5] # Get 5 books containing the title war
 
 class BookDetailView(generic.DetailView):
     model = Book
