@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1> {{ review.mediaItem.title }}</h1>
+  <p><strong>Author:</strong> <a href="{% url 'author-detail' review.mediaItem.author.pk %}">{{ review.mediaItem.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Summary:</strong> {{ review.mediaItem.summary }}</p>
+  <p><strong>ISBN:</strong> {{ review.mediaItem.isbn }}</p>
+  <p><strong>Language:</strong> {{ review.mediaItem.language }}</p>
+  <p><strong>Genre:</strong> {% for genre in review.mediaItem.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+
+  <h3><a href="{% url 'user-detail' review.user.pk %}">{{review.user.username}}:</a></h3>
+  <p>{{review.description}}</p>
+
+  {% for reply in review.reply_set.all %}
+    <p style="margin-left: 40px"><a href="{% url 'user-detail' reply.user.pk %}">{{reply.user.username}}:</a> {{reply.description}}</p>
+  {% endfor %}
+
+{% endblock %}

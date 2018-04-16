@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1> {{ music.song_title }}</h1>
+<p><strong>Artist:</strong> <a href="{% url 'author-detail' music.artist.pk %}">{{ music.artist }}</a></p>
+<p>Runtime: {{music.length}}</p>
+
+
+{% endblock %}

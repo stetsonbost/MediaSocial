@@ -1,9 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Media</h1>
 
-    <h3>Book List</h3>
+    <h1>Books</h1>
     {% if book_list %}
     <ul>
 
@@ -17,18 +16,6 @@
     {% else %}
       <p>There are no books in the library.</p>
     {% endif %}
-    <h3>Music List</h3>
-    {% if music_list %}
-    <ul>
 
-      {% for music in music_list %}
-      <li>
-        <a href="{{ music.get_absolute_url }}">{{ music.title }}</a> ({{music.author}})
-      </li>
-      {% endfor %}
 
-    </ul>
-    {% else %}
-      <p>There is no music in the library.</p>
-    {% endif %}
 {% endblock %}

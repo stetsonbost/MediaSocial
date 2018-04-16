@@ -1,20 +1,20 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Media Social Home</h1>
+<h1>Media Social</h1>
 
-  <p>Welcome to <em>MediaSocial</em></p>
+  {% if user.is_authenticated %}
+  <p>Welcome back {{user.get_username}}</p>
+  {% else %}
+  <p>Welcome to <em>Social Media</em></p>
+  {% endif %}
 
-<h2>Dynamic content</h2>
 
-  <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Books:</strong> {{ num_books }}</li>
-    <li><strong>Copies:</strong> {{ num_instances }}</li>
-    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-    <li><strong>Authors:</strong> {{ num_authors }}</li>
-  </ul>
+<h3>Library</h3>
 
-<p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+  <p>Our Library currently holds an amazing {{num_books}} books, {{num_music}} music records from {{num_authors}} authors!</p>
+  <p>Check them out, review and share your comments with your friends!</p>
+
+<h2>News Feed</h2>
 
 {% endblock %}

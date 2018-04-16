@@ -16,10 +16,11 @@
 
         <hr>
         <div>
-          <p><strong>{{review.user.username}}:</strong> {{review.description}}</a></p>
+          <p><a href="{% url 'user-detail' review.user.pk %}">{{review.user.username}}:</a> {{review.description}}</p>
             {% for reply in review.reply_set.all %}
-              <p style="margin-left: 40px"><strong>{{reply.user.username}}:</strong> {{reply.description}}</a></p>
+              <p style="margin-left: 40px"><a href="{% url 'user-detail' reply.user.pk %}">{{reply.user.username}}:</a> {{reply.description}}</p>
             {% endfor %}
+          <h6><a href="{% url 'review-detail' review.pk %}">Go to Review</h6>
         <div>
 
 

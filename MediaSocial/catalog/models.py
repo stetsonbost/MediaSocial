@@ -78,6 +78,18 @@ class Music (models.Model):
     artist = models.ForeignKey('Author', on_delete=models.CASCADE, null=True)
     length = models.FloatField(default=2.0)
 
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.song_title
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a detail record for this book.
+        """
+        return reverse('music-detail', args=[str(self.id)])
+
 
 class Visual (models.Model):
     creator = models.ForeignKey('Author', on_delete=models.CASCADE)
@@ -116,6 +128,18 @@ class Television(models.Model):
     genre = models.ManyToManyField('Genre')
     first_air_date = models.DateField(default=date.today())
 
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.title
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular author instance.
+        """
+        return reverse('television-detail', args=[str(self.id)])
+
 class Movies(models.Model):
     title = models.CharField(max_length=200)
     director = models.ForeignKey('Author', on_delete = models.CASCADE, related_name="director")
@@ -124,3 +148,9 @@ class Movies(models.Model):
     genre = models.ManyToManyField('Genre')
     duration = models.IntegerField(default=30)
     release_date = models.DateField(default=date.today())
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.title
