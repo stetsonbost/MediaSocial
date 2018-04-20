@@ -26,7 +26,7 @@ SECRET_KEY = '^$$1x2r22ijtdx3o%!vqi63#ha-8-_#d*b+4&ctx8!y5ebdg&*'
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sleepy-dawn-44206.herokuapp.com','127.0.0.1']
 
 
 # Application definition
