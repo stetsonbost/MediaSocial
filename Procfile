@@ -1,1 +1,1 @@
-web: gunicorn mediasocialapp.wsgi --log-file -
+web: gunicorn mediasocial.wsgi --log-file -
