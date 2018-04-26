@@ -65,6 +65,8 @@ class ReviewDetailView(generic.DetailView):
     model = Review
     template_name = 'catalog/review_detail.html'
 
+
+
 class MusicDetailView(generic.DetailView):
     model = Music
 
@@ -86,6 +88,7 @@ class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
     initial={'date_of_birth':'05/01/2018',}
+
 
 class AuthorUpdate(UpdateView):
     model = Author

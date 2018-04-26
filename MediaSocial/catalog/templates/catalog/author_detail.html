@@ -9,11 +9,19 @@
 
 
   <div style="margin-left:20px;margin-top:20px">
+
     <h4>Books Written</h4>
 
-    {% for book in author.book_set.all %}
-    <hr>
-    <p><strong>Title:</strong><a href="{% url 'book-detail' book.pk %}"> {{book.title}}</a></p>
-    {% endfor %}
+      {% for book in author.book_set.all %}
+      <hr>
+      <p><strong>Title:</strong><a href="{% url 'book-detail' book.pk %}"> {{book.title}}</a></p>
+      {% endfor %}
+
+      <h4>Music</h4>
+      {% for music in author.music_set.all %}
+      <hr>
+      <p><strong>Title:</strong><a href="{% url 'music-detail' music.pk %}"> {{music.song_title}}</a></p>
+      {% endfor %}
+
   </div>
 {% endblock %}
