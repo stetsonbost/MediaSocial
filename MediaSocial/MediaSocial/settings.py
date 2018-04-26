@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^$$1x2r22ijtdx3o%!vqi63#ha-8-_#d*b+4&ctx8!y5ebdg&*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', 'sleepy-dawn-44206.herokuapp.com','127.0.0.1','mediasocialapp.herokuapp.com', 'tranquil-wave-32730.herokuapp.com']
 
