@@ -17,8 +17,13 @@ class Review(models.Model):
 
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
+    #created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.description
+
+    #class Meta:
+    #    ordering = ('created',)
 
 class Reply(models.Model):
     """ Model representing a comment"""
@@ -29,8 +34,13 @@ class Reply(models.Model):
 
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
+    #created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.description
+
+    #class Meta:
+    #    ordering = ('created',)
 
 class Genre(models.Model):
     """

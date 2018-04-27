@@ -5,8 +5,9 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Book, Author, Review, Genre, Music, Television
+from .models import Book, Author, Review, Genre, Music, Television, Reply
 from django.contrib.auth.models import User
+from .forms import ReplyForm
 
 def index(request):
     """
@@ -64,7 +65,6 @@ class UserDetailView(generic.DetailView):
 class ReviewDetailView(generic.DetailView):
     model = Review
     template_name = 'catalog/review_detail.html'
-
 
 
 class MusicDetailView(generic.DetailView):
