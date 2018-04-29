@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 
 from .models import Book, Author, Review, Genre, Music, Television, Reply
 from django.contrib.auth.models import User
-from .forms import ReplyForm
 
 def index(request):
     """
@@ -66,7 +65,6 @@ class ReviewDetailView(generic.DetailView):
     model = Review
     template_name = 'catalog/review_detail.html'
 
-
 class MusicDetailView(generic.DetailView):
     model = Music
 
@@ -88,6 +86,15 @@ class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
     initial={'date_of_birth':'05/01/2018',}
+
+
+class ReviewCreate(CreateView):
+    model = Review
+    fields = '__all__'
+
+class ReplyCreate(CreateView):
+    model = Reply
+    fields = '__all__'
 
 
 class AuthorUpdate(UpdateView):

@@ -16,13 +16,6 @@
     <p style="margin-left: 40px"><a href="{% url 'user-detail' reply.user.pk %}">{{reply.user.username}}:</a> {{reply.description}}</p>
   {% endfor %}
 
-  <form action="" method="post">
-      {% csrf_token %}
-      <table>
-      {{ form.as_table }}
-      </table>
-      <input type="submit" value="Submit" />
-
-  </form>
+<h3><a href="{% url 'reply_create' %}"> + Add Reply<a></h3>
 
 {% endblock %}
